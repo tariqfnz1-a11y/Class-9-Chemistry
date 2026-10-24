@@ -1,549 +1,341 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Class 9 Chemistry Interactive Revision Lab</title>
+<meta name="theme-color" content="#0b1220">
+<title>Class 9 Chemistry | Interactive Revision Lab</title>
 <style>
-:root {
-  --bg:#0b1220; --card:#142238; --text:#eef5ff;
-  --muted:#b4c4d9; --accent:#59d5c7; --line:#344761;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0; font:16px/1.6 system-ui,Arial,sans-serif;
-  background:var(--bg); color:var(--text);
-}
-header {
-  padding:28px 5%; background:#101d31;
-  border-bottom:1px solid var(--line);
-}
-header h1 { line-height:1.15; font-size:clamp(27px,5vw,42px); }
-header p,.muted { color:var(--muted); }
-main { max-width:1100px; margin:auto; padding:20px; }
-nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
-button,select,input {
-  font:inherit; border-radius:9px; padding:10px;
-}
-button { cursor:pointer; border:1px solid var(--line); }
-.tab { background:var(--card); color:var(--text); }
-.tab.active,.primary { background:var(--accent); color:#06201f; }
-.page { display:none; }
-.page.active { display:block; }
-.grid {
-  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px;
-}
-.card {
-  min-width:0; padding:18px; border:1px solid var(--line);
-  border-radius:15px; background:var(--card);
-}
-.full { grid-column:1/-1; }
-h2 { font-size:22px; margin-top:0; }
-h3 { font-size:18px; }
-label { display:block; margin-top:12px; font-weight:bold; }
-input[type=range],input[type=number],select { width:100%; }
-input,select { background:#0a1527; color:white; border:1px solid var(--line); }
-.output {
-  margin-top:12px; padding:12px; border-radius:10px;
-  background:#091626; border:1px solid var(--line);
-}
-.visual {
-  position:relative; height:180px; margin-top:12px;
-  background:#081321; border:1px solid var(--line);
-  border-radius:10px; overflow:hidden;
-}
-.particle {
-  position:absolute; width:12px; height:12px;
-  background:var(--accent); border-radius:50%;
-}
-.chapter {
-  padding:10px; margin:7px 0; border:1px solid var(--line);
-  border-radius:8px;
-}
-.question { padding:16px 0; border-bottom:1px solid var(--line); }
-.options {
-  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px; margin-top:10px;
-}
-.option {
-  text-align:left; background:#0b182b; color:var(--text);
-  border:1px solid var(--line);
-}
-.option.selected { border-color:var(--accent); }
-.feedback { margin-top:8px; color:var(--muted); }
-.good { color:#6ee7a8; }
-.bad { color:#ff9292; }
-.score { color:var(--accent); font-size:30px; font-weight:bold; }
-footer { text-align:center; padding:25px; color:var(--muted); }
-@media(max-width:650px) {
-  .grid,.options { grid-template-columns:1fr; }
-  .full { grid-column:auto; }
-  main { padding:12px; }
-}
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#17263c;--text:#eef5ff;--muted:#a9bad0;--line:#2c3e58;--accent:#59d5c7;--accent2:#8db8ff;--good:#6ee7a8;--bad:#ff9292;--gold:#ffd37a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#182d48 0,transparent 36%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{padding:30px max(20px,calc((100% - 1180px)/2)) 24px;border-bottom:1px solid var(--line);background:#0b1220cc}
+.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;font-weight:800}
+h1{font-size:clamp(1.8rem,4vw,3.1rem);line-height:1.1;margin:.45rem 0}.subtitle{color:var(--muted);max-width:780px}
+.wrap{max-width:1180px;margin:auto;padding:22px 18px 50px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.tab{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 15px;font-weight:700;cursor:pointer}.tab.active,.tab:hover{background:var(--accent);color:#082027;border-color:var(--accent)}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{background:linear-gradient(160deg,var(--panel),#101a2b);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-7{grid-column:span 7}.span-6{grid-column:span 6}.span-5{grid-column:span 5}.span-4{grid-column:span 4}
+h2{margin:0 0 8px;font-size:1.35rem}h3{margin:0 0 7px;font-size:1.04rem}p{margin:.45rem 0}.muted{color:var(--muted)}.small{font-size:.88rem}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--muted);font-size:.8rem;margin:3px 3px 3px 0}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;background:var(--accent);color:#082027;cursor:pointer}.btn.secondary{background:#243751;color:var(--text);border:1px solid var(--line)}.btn:focus,.tab:focus,input:focus,select:focus{outline:2px solid var(--gold);outline-offset:2px}
+label{display:block;font-weight:700;margin:10px 0 4px}input[type=range]{width:100%;accent-color:var(--accent)}input[type=number],select{width:100%;padding:10px;background:#0b1424;color:var(--text);border:1px solid var(--line);border-radius:9px}
+.output{background:#0a1423;border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:12px;min-height:50px}.visual{height:180px;background:#091321;border:1px solid var(--line);border-radius:13px;position:relative;overflow:hidden;margin-top:12px}
+.particle{position:absolute;width:13px;height:13px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px #59d5c755;transition:all .3s}
+.atom{display:flex;gap:7px;flex-wrap:wrap;align-items:center;justify-content:center;min-height:95px}.nucleus{background:#ff927d;color:#25100c;border-radius:50%;padding:14px;font-weight:900}.electron{background:#8db8ff;color:#07152a;border-radius:50%;padding:7px 10px;font-weight:900}
+.question{padding:15px 0;border-bottom:1px solid var(--line)}.question:last-child{border-bottom:0}.qhead{display:flex;gap:9px;align-items:flex-start}.qnum{background:#253952;border-radius:8px;padding:3px 8px;font-size:.8rem;font-weight:900}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0 0 31px}.option{display:flex;gap:8px;align-items:flex-start;text-align:left;background:#0d1829;border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--text);cursor:pointer}.option.selected{border-color:var(--accent2);background:#1b2d46}.option.correct{border-color:var(--good)}.option.wrong{border-color:var(--bad)}.feedback{margin:8px 0 0 31px;font-size:.9rem}.score{font-size:2rem;font-weight:900;color:var(--accent)}.progress{height:8px;border-radius:99px;background:#26364b;overflow:hidden}.progress>div{height:100%;background:var(--accent);width:0;transition:width .2s}.chapter-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.chapter{padding:11px;border-radius:11px;background:#0d1829;border:1px solid var(--line)}.chapter b{color:var(--accent2)}.chapter-details{margin-top:10px}.chapter-details details{background:#0d1829;border:1px solid var(--line);border-radius:12px;margin:9px 0;overflow:hidden}.chapter-details summary{cursor:pointer;padding:14px;font-weight:800;color:var(--accent2)}.chapter-details .detail-body{padding:0 15px 15px}.chapter-details h4{margin:12px 0 5px;color:var(--gold)}.analogy{padding:11px 13px;background:#102c32;border:1px solid #24565a;border-radius:10px;margin-top:8px}.main-points li{margin:4px 0}.term-name{color:var(--accent2);font-weight:800}.chapter-details ul{margin:5px 0 10px;padding-left:21px}.fact{padding:10px 12px;background:#18263a;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;margin-top:8px}.chem-equation{font-size:1.3rem;font-weight:900;letter-spacing:.04em;text-align:center;padding:15px}.notice{border-left:3px solid var(--gold);padding:9px 12px;background:#2b251a;border-radius:0 8px 8px 0;color:#ffe7b4}.footer{color:var(--muted);text-align:center;padding:25px 10px;font-size:.85rem}
+@media(max-width:760px){.span-8,.span-7,.span-6,.span-5,.span-4{grid-column:span 12}.options,.chapter-list{grid-template-columns:1fr}.wrap{padding:16px 12px 35px}.card{padding:15px}}
+@media print{body{background:white;color:#111}.card{background:white;border:1px solid #aaa;color:#111}.muted{color:#444}.tab,nav,.btn{display:none}.page{display:block!important}.option{color:#111;background:white}.output{background:white}}
 </style>
 </head>
 <body>
-
-<header>
-  <p style="color:#59d5c7;font-weight:bold;letter-spacing:2px">
-    INTERACTIVE EDTECH LEARNING LAB
-  </p>
-  <h1>Class 9 Chemistry<br>Revision & Simulation Lab</h1>
-  <p>Explore concepts, manipulate models and practise with 30 MCQs.</p>
-</header>
-
-<main>
-<nav>
-  <button class="tab active" data-page="revision">Revision Map</button>
-  <button class="tab" data-page="simulations">Simulations</button>
-  <button class="tab" data-page="test">30-MCQ Test</button>
+<header><div class="eyebrow">Interactive EdTech Learning Lab</div><h1>Class 9 Chemistry<br>Revision & Simulation Lab</h1><p class="subtitle">Explore the big ideas, change variables, observe what happens, and then test your understanding with 30 MCQs. Designed as a self-contained GitHub Pages website—no login or external libraries required.</p></header>
+<main class="wrap">
+<nav aria-label="Main sections">
+<button class="tab active" data-page="home">Revision map</button><button class="tab" data-page="sim">Concept simulations</button><button class="tab" data-page="quiz">30-MCQ practice test</button>
 </nav>
-
-<section id="revision" class="page active">
+<section class="page active" id="home">
 <div class="grid">
-  <div class="card full">
-    <h2>How to use this learning lab</h2>
-    <p>Recall a concept, explore the simulation, explain what you observe,
-    and then test your understanding.</p>
-    <p class="muted">Check chapter titles and examination coverage against
-    your current official PECTAA/PTB textbook.</p>
-  </div>
-
-  <div class="card">
-    <h2>Your progress</h2>
-    <div class="score" id="homeScore">0/30</div>
-    <p id="progressText" class="muted">No questions attempted yet.</p>
-    <button class="primary" onclick="showPage('test')">Start test</button>
-  </div>
-
-  <div class="card">
-    <h2>Revision strategy</h2>
-    <p>1. Understand the basic concept.</p>
-    <p>2. Change a simulation variable.</p>
-    <p>3. Explain the result scientifically.</p>
-    <p>4. Attempt the MCQs and review mistakes.</p>
-  </div>
-
-  <div class="card full">
-    <h2>Book-wide revision map</h2>
-    <div id="chapterList"></div>
-  </div>
+<div class="card span-8"><h2>How to revise effectively</h2><p>Use this sequence: <b>Recall → Explore → Explain → Practise.</b> Start by explaining a concept in your own words, change a simulation variable, and describe the evidence you observe. Finish with the practice test.</p><div class="pill">Self-paced</div><div class="pill">Mobile friendly</div><div class="pill">Instant feedback</div><div class="pill">Offline-ready</div><div class="notice small" style="margin-top:12px">Teacher note: use the official PECTAA/PTB textbook and the applicable board syllabus to verify exact chapter wording and examinable subtopics. The simulations are simplified learning models, not laboratory substitutes.</div></div>
+<div class="card span-4"><h2>Your practice progress</h2><div class="score" id="homeScore">0/30</div><p class="muted">Correct answers in this session</p><div class="progress"><div id="homeProgress"></div></div><p class="small muted" id="progressText">Attempt the test to see your progress.</p><button class="btn secondary" onclick="go('quiz')">Start practice test →</button></div>
+<div class="card span-12"><h2>Book-wide revision map</h2><p class="muted">The following chapter sequence matches the 13-chapter Punjab Chemistry textbook structure listed for the 2025–26 / 2026–27 edition. Check the official textbook for exact detail and examination coverage.</p><div class="chapter-list" id="chapterList"></div><h3 style="margin-top:24px">Chapter-by-chapter learning notes</h3><p class="muted small">Open any chapter for a summary, main points to remember, key terms with definitions, a real-life analogy, and an interesting fact. Use these notes alongside your textbook.</p><div class="chapter-details" id="chapterDetails"></div></div>
+<div class="card span-12"><h2>Core concepts to be able to explain</h2><div class="grid">
+<div class="span-4"><h3>Particles & atoms</h3><p class="muted small">Particle motion, changes of state, atomic number, mass number, isotopes and electron arrangement.</p></div>
+<div class="span-4"><h3>Structure & calculation</h3><p class="muted small">Ionic/covalent bonding, balanced equations, mole ratios, energy changes and equilibrium.</p></div>
+<div class="span-4"><h3>Chemistry in context</h3><p class="muted small">pH, periodic patterns, group properties, hydrocarbons, environmental evidence and safe practical work.</p></div>
+</div></div>
 </div>
 </section>
-
-<section id="simulations" class="page">
+<section class="page" id="sim">
 <div class="grid">
-
-  <div class="card">
-    <h2>1. States of Matter</h2>
-    <p class="muted">Change temperature to observe a particle model.</p>
-    <label>Temperature: <span id="tempValue">25</span>°C</label>
-    <input type="range" id="temp" min="-20" max="120" value="25">
-    <div class="visual" id="particles"></div>
-    <div class="output" id="stateResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>2. Atomic Structure</h2>
-    <p class="muted">Choose the number of protons in a neutral atom.</p>
-    <label>Protons: <span id="protonValue">6</span></label>
-    <input type="range" id="protons" min="1" max="20" value="6">
-    <div class="output" id="atomResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>3. Chemical Bonding</h2>
-    <label>Choose a bond model</label>
-    <select id="bondType">
-      <option value="ionic">Ionic bonding: sodium chloride</option>
-      <option value="covalent">Covalent bonding: hydrogen molecule</option>
-    </select>
-    <div class="output" id="bondResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>4. Stoichiometry</h2>
-    <p>2H₂ + O₂ → 2H₂O</p>
-    <label>Available H₂ (mol)</label>
-    <input type="number" id="h2" value="4" min="0" step="0.1">
-    <label>Available O₂ (mol)</label>
-    <input type="number" id="o2" value="1.5" min="0" step="0.1">
-    <button class="primary" id="calculate">Calculate</button>
-    <div class="output" id="stoichResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>5. Acids, Bases and pH</h2>
-    <label>pH: <span id="phValue">7</span></label>
-    <input type="range" id="ph" min="0" max="14" value="7">
-    <div class="output" id="phResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>6. Chemical Equilibrium</h2>
-    <p class="muted">Illustrative model of a reversible reaction.</p>
-    <label>Change a condition</label>
-    <select id="equilibrium">
-      <option value="none">No change</option>
-      <option value="reactant">Add reactant</option>
-      <option value="product">Remove product</option>
-      <option value="heat">Heat an endothermic forward reaction</option>
-    </select>
-    <div class="output" id="equilibriumResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>7. Periodic Trends</h2>
-    <label>Select a trend</label>
-    <select id="trend">
-      <option value="radius">Atomic radius across a period</option>
-      <option value="metal">Metallic character across a period</option>
-      <option value="reactivity">Group 1 reactivity down a group</option>
-    </select>
-    <div class="output" id="trendResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>8. Hydrocarbons</h2>
-    <label>Carbon atoms: <span id="carbonValue">3</span></label>
-    <input type="range" id="carbon" min="1" max="8" value="3">
-    <div class="output" id="hydrocarbonResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>9. Environmental Chemistry</h2>
-    <label>Select a pollutant</label>
-    <select id="pollutant">
-      <option value="co2">Carbon dioxide</option>
-      <option value="so2">Sulfur dioxide</option>
-      <option value="plastic">Plastic waste</option>
-      <option value="nitrate">Nitrate runoff</option>
-    </select>
-    <div class="output" id="pollutionResult"></div>
-  </div>
-
-  <div class="card">
-    <h2>10. Experimental Data</h2>
-    <label>Measurement (cm)</label>
-    <input type="number" id="measurement" value="12.4" step="0.1">
-    <button class="primary" id="addMeasurement">Add reading</button>
-    <button id="clearMeasurements">Clear</button>
-    <div class="output" id="measurementResult">No readings yet.</div>
-  </div>
-
-  <div class="card full">
-    <h2>11–13. Practical Skills and Revision</h2>
-    <p><b>Data collection:</b> record observations with units, repeat readings
-    and identify unusual results.</p>
-    <p><b>Laboratory safety:</b> follow teacher instructions, wear suitable
-    protective equipment, and never taste chemicals.</p>
-    <p><b>Group properties:</b> compare elements in the same group and
-    explain similarities using their outer-shell electrons.</p>
-  </div>
-
+<div class="card span-6"><h2>1. States of matter</h2><p class="muted small">Move temperature to model how particle movement changes. This is a qualitative model.</p><label for="temp">Temperature: <span id="tempVal">25</span>°C</label><input id="temp" type="range" min="-20" max="120" value="25"><div class="visual" id="particles" aria-label="Particle motion simulation"></div><div class="output" id="stateOut">Particles are close together and can move past one another: liquid-like model.</div></div>
+<div class="card span-6"><h2>2. Build an atom</h2><p class="muted small">Choose an element by its proton count. For a neutral atom, electrons equal protons.</p><label for="protons">Number of protons</label><input id="protons" type="range" min="1" max="20" value="6"><div class="output"><div class="atom" id="atomVisual"></div><b id="atomName">Carbon (C)</b><p id="atomInfo" class="muted small"></p></div></div>
+<div class="card span-6"><h2>3. Bonding explorer</h2><p class="muted small">Compare electron transfer in an ionic model with electron sharing in a covalent model.</p><label for="bondType">Bond type</label><select id="bondType"><option value="ionic">Ionic: sodium + chlorine (model)</option><option value="covalent">Covalent: hydrogen molecule (model)</option></select><div class="visual" id="bondVisual"><div class="chem-equation">Na → Na⁺ + e⁻</div></div><div class="output" id="bondOut">Sodium transfers one outer electron to chlorine. Oppositely charged ions attract.</div></div>
+<div class="card span-6"><h2>4. Stoichiometry calculator</h2><p class="muted small">Use the balanced equation 2H₂ + O₂ → 2H₂O. The coefficient ratio is 2 : 1 : 2.</p><label for="h2">Available H₂ (moles)</label><input type="number" id="h2" min="0" step=".1" value="4"><label for="o2">Available O₂ (moles)</label><input type="number" id="o2" min="0" step=".1" value="1.5"><button class="btn" id="calcStoich">Calculate limiting reactant</button><div class="output" id="stoichOut">Enter quantities and calculate.</div></div>
+<div class="card span-6"><h2>5. Acids, bases & pH</h2><p class="muted small">A simplified pH scale: lower pH is more acidic; higher pH is more alkaline.</p><label for="ph">pH: <span id="phVal">7</span></label><input id="ph" type="range" min="0" max="14" value="7"><div class="output" id="phOut">pH 7: neutral in this simplified model.</div><div class="progress" style="margin-top:10px"><div id="phBar"></div></div></div>
+<div class="card span-6"><h2>6. Equilibrium & energetics</h2><p class="muted small">Explore how a simplified reversible reaction responds to a change in conditions. Real systems depend on the reaction.</p><label for="shift">Condition change</label><select id="shift"><option value="none">No change</option><option value="more">Add reactant</option><option value="heat">Increase temperature (endothermic forward reaction)</option><option value="remove">Remove product</option></select><div class="visual" style="height:auto;padding:16px"><div style="display:flex;justify-content:space-around;align-items:center;gap:12px"><div><b>Reactants</b><div id="reactBar" style="height:18px;width:120px;background:#59d5c7;border-radius:5px;margin-top:8px"></div><span id="reactVal">50 units</span></div><div style="font-size:1.5rem">⇌</div><div><b>Products</b><div id="prodBar" style="height:18px;width:120px;background:#8db8ff;border-radius:5px;margin-top:8px"></div><span id="prodVal">50 units</span></div></div></div><div class="output" id="eqOut">At equilibrium, forward and reverse reaction rates are equal; concentrations are constant, not necessarily equal.</div></div>
+<div class="card span-6"><h2>7. Periodic trends</h2><p class="muted small">Select a direction to review a general trend. Exceptions exist, so use the textbook for detailed trends.</p><label for="trend">Trend</label><select id="trend"><option value="radius">Atomic radius across a period</option><option value="metal">Metallic character across a period</option><option value="group">Reactivity of Group 1 metals down the group</option></select><div class="output" id="trendOut">Across a period, atomic radius generally decreases as nuclear charge increases while electrons enter the same main shell.</div></div>
+<div class="card span-6"><h2>8. Hydrocarbon model</h2><p class="muted small">Build a straight-chain alkane. Alkanes follow the general formula CₙH₂ₙ₊₂.</p><label for="carbon">Carbon atoms: <span id="carbonVal">3</span></label><input id="carbon" type="range" min="1" max="8" value="3"><div class="output"><div class="chem-equation" id="alkaneFormula">C₃H₈</div><p id="alkaneName" class="muted">Propane: saturated hydrocarbon with only single carbon-carbon bonds.</p><div id="alkaneDrawing" style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap"></div></div></div>
+<div class="card span-6"><h2>9. Environmental chemistry</h2><p class="muted small">Choose a pollutant to connect its source with a likely impact and prevention approach.</p><label for="pollutant">Example pollutant</label><select id="pollutant"><option value="co2">Excess carbon dioxide</option><option value="so2">Sulfur dioxide</option><option value="plastic">Plastic waste in water</option><option value="nitrate">Nitrate runoff</option></select><div class="output" id="pollutionOut"></div></div>
+<div class="card span-6"><h2>10. Practical data & lab safety</h2><p class="muted small">Think like a scientist: record observations, repeat measurements, use units and change one variable at a time.</p><label for="trials">Measurements (cm): enter a value</label><input type="number" id="measurement" value="12.4" step="0.1"><button class="btn" id="addMeasure">Add measurement</button> <button class="btn secondary" id="clearMeasure">Clear</button><div class="output" id="measureOut">No measurements recorded yet.</div><p class="small muted">Always wear required PPE, follow teacher instructions, and never taste chemicals or directly smell them.</p></div>
 </div>
 </section>
-
-<section id="test" class="page">
-<div class="card">
-  <h2>Class 9 Chemistry: 30-MCQ Practice Test</h2>
-  <p class="muted">Select one answer for each question. Feedback appears
-  immediately. Finish the test to see your result.</p>
-  <div class="score" id="quizScore">0/30</div>
-  <div id="questions"></div>
-  <button class="primary" id="finish">Finish Test</button>
-  <button id="reset">Reset Test</button>
-  <div class="output" id="finalResult" style="display:none"></div>
-</div>
+<section class="page" id="quiz">
+<div class="card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap"><div><h2>30-MCQ practice test</h2><p class="muted">One best answer per question. Select an option to see feedback, or finish the test for a score summary. Questions are distributed across the 13 revision areas.</p></div><div><div class="score" id="quizScore">0/30</div><div class="small muted">Correct so far</div></div></div><div class="progress"><div id="quizProgress"></div></div><div id="questions"></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px"><button class="btn" id="finishQuiz">Finish & review results</button><button class="btn secondary" id="resetQuiz">Reset test</button><button class="btn secondary" onclick="window.print()">Print revision / test</button></div><div id="results" class="output" style="display:none;margin-top:18px"></div></div>
 </section>
+<div class="footer">Class 9 Chemistry • Interactive revision resource • Chapter notes are revision aids; verify exact definitions, examples and exam coverage against the official PECTAA/PTB textbook.</div>
 </main>
-
-<footer>
-Class 9 Chemistry Interactive Revision Lab · GitHub Pages
-</footer>
-
 <script>
-const chapters = [
-["States of Matter and Phase Changes","Particle model, diffusion and changes of state."],
-["Atomic Structure","Protons, neutrons, electrons, atomic number and isotopes."],
-["Chemical Bonding","Ionic bonding, covalent bonding and electron arrangements."],
-["Stoichiometry","Balanced equations, mole ratios and chemical calculations."],
-["Energetics","Exothermic and endothermic reactions."],
-["Equilibria","Reversible reactions and dynamic equilibrium."],
-["Acid Base Chemistry","Acids, bases, pH and neutralisation."],
-["Periodic Table and Periodicity","Groups, periods and periodic trends."],
-["Group Properties and Elements","Properties and reactivity of groups."],
-["Environmental Chemistry","Air pollution, water pollution and prevention."],
-["Hydrocarbons","Alkanes, alkenes and organic compounds."],
-["Empirical Data Collection and Analysis","Measurements, tables, graphs and reliability."],
-["Laboratory and Practical Skills","Equipment, safe procedures and fair testing."]
+const chapters=[
+["States of Matter and Phase Changes","Particle model, solids/liquids/gases, diffusion, changes of state and heating/cooling."],
+["Atomic Structure","Protons, neutrons, electrons, atomic number, mass number and isotopes."],
+["Chemical Bonding","Valence electrons, ionic transfer, covalent sharing and properties of compounds."],
+["Stoichiometry","Formulae, balanced equations, relative masses, mole ratios and calculations."],
+["Energetics","Exothermic/endothermic changes and energy transfer."],
+["Equilibria","Reversible reactions, dynamic equilibrium and effects of conditions."],
+["Acid Base Chemistry","Acids, bases, pH, indicators and neutralisation."],
+["Periodic Table and Periodicity","Periods, groups, electronic arrangement and periodic trends."],
+["Group Properties and Elements","Similarities within groups and patterns in reactivity/properties."],
+["Environmental Chemistry","Air/water pollutants, causes, effects and prevention."],
+["Hydrocarbons","Alkanes, alkenes, formulae, saturated/unsaturated compounds."],
+["Empirical Data Collection and Analysis","Observations, measurements, tables, graphs, accuracy and repeatability."],
+["Laboratory and Practical Skills","Apparatus, safe procedures, fair tests and reliable results."]
 ];
+document.getElementById('chapterList').innerHTML=chapters.map((c,i)=>`<div class="chapter"><b>${String(i+1).padStart(2,'0')} · ${c[0]}</b><div class="small muted">${c[1]}</div></div>`).join('');
+const chapterNotes = [
+  {    "mainPoints": ["Matter is made of particles.", "Solids have closely packed particles vibrating in place; liquids flow; gases spread to fill a container.", "Heating usually increases particle kinetic energy; cooling usually removes energy.", "Diffusion is generally faster at higher temperature.", "Elements, compounds and mixtures are different; solutions, colloids and suspensions can be distinguished."],
+    "analogy": "Think of particles like people in a room: in a solid they stand in assigned places and wiggle; in a liquid they stay close but can move around; in a gas they spread out and move freely. This is a model, not a literal picture.",
 
-document.getElementById("chapterList").innerHTML = chapters.map((c,i) =>
-  `<div class="chapter"><b>Chapter ${i+1}: ${c[0]}</b><br>
-  <span class="muted">${c[1]}</span></div>`
-).join("");
+    "summary": "Chemistry studies matter, its composition, properties and changes. Matter includes elements, compounds and mixtures. Solids, liquids and gases differ in particle arrangement and motion. Pure substances and mixtures can be distinguished; solutions, colloids and suspensions behave differently. Changes of state and diffusion can be explained by particle motion, while solubility depends on the solute, solvent and conditions.",
+    "terms": [
+      "Chemistry — study of matter, its properties, composition and changes.",
+      "Element — pure substance made of one type of atom.",
+      "Compound — substance whose elements are chemically combined in a fixed ratio.",
+      "Mixture — substances physically combined in variable proportions.",
+      "Allotropy — different structural forms of the same element.",
+      "Solution — homogeneous mixture; colloid — mixture with dispersed particles that do not readily settle; suspension — mixture whose particles may settle.",
+      "Diffusion — net spreading of particles from higher to lower concentration.",
+      "Solubility — maximum amount of solute that dissolves in a given amount of solvent at a stated temperature."
+    ],
+    "fact": "Milk is a colloid, muddy water is typically a suspension, and salt water is a solution—three mixtures that can look similar but behave differently."
+  },
+  {    "mainPoints": ["Atomic number identifies an element and equals its proton number.", "Mass number = protons + neutrons.", "A neutral atom has equal numbers of protons and electrons.", "Isotopes have the same proton number but different neutron numbers.", "Electrons occupy shells/energy levels; the textbook model is a simplified representation."],
+    "analogy": "An atom is like a tiny school with a central office (the nucleus) and students in different rings of seats (electron shells). The analogy helps with structure, but electrons do not travel in neat circular tracks like planets.",
 
-function showPage(id) {
-  document.querySelectorAll(".page").forEach(p =>
-    p.classList.toggle("active",p.id===id));
-  document.querySelectorAll(".tab").forEach(t =>
-    t.classList.toggle("active",t.dataset.page===id));
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll(".tab").forEach(t =>
-  t.addEventListener("click",()=>showPage(t.dataset.page)));
+    "summary": "An atom has a nucleus containing protons and usually neutrons, with electrons occupying shells or energy levels around it. Atomic number is the number of protons; mass number is protons plus neutrons. Isotopes are atoms of one element with different neutron numbers. Relative atomic mass accounts for the masses and natural abundances of an element’s isotopes.",
+    "terms": [
+      "Proton — positively charged particle in the nucleus.",
+      "Neutron — uncharged particle in the nucleus.",
+      "Electron — negatively charged particle outside the nucleus.",
+      "Atomic number — number of protons in an atom.",
+      "Mass number — total number of protons and neutrons in one nucleus.",
+      "Isotopes — atoms with the same atomic number but different mass numbers.",
+      "Relative atomic mass — weighted average isotope mass relative to 1/12 of a carbon-12 atom."
+    ],
+    "fact": "Atoms of the same element can have different masses because they can contain different numbers of neutrons."
+  },
+  {    "mainPoints": ["Valence electrons are important in bonding.", "Ionic bonding involves electron transfer and attraction between oppositely charged ions.", "Covalent bonding involves shared electron pairs.", "Metallic bonding involves positive metal ions and delocalised electrons.", "Intermolecular forces are attractions between molecules, not the same as covalent bonds within molecules."],
+    "analogy": "Ionic bonding is like one person handing over a token, leaving two people with opposite charges that attract. Covalent bonding is like two people sharing a pair of tokens. Metallic bonding is more like a crowd sharing a mobile pool of tokens (delocalised electrons).",
 
-const particles = document.getElementById("particles");
-for(let i=0;i<32;i++){
-  const p=document.createElement("div");
-  p.className="particle";
-  particles.appendChild(p);
-}
-function updateParticles(){
-  const t=+temp.value;
-  tempValue.textContent=t;
-  const state=t<0?"solid":t<65?"liquid":"gas";
-  [...particles.children].forEach((p,i)=>{
-    let x,y;
-    if(state==="solid"){
-      x=15+(i%8)*10;
-      y=20+Math.floor(i/8)*20;
-    } else if(state==="liquid"){
-      x=5+(i%8)*12;
-      y=10+Math.floor(i/8)*25;
-    } else {
-      x=(i*37+t*7)%90;
-      y=(i*29+t*11)%85;
-    }
-    p.style.left=x+"%";
-    p.style.top=y+"%";
-  });
-  stateResult.textContent =
-    state==="solid" ? "Solid-like: particles vibrate around fixed positions." :
-    state==="liquid" ? "Liquid-like: particles remain close but can move past one another." :
-    "Gas-like: particles are widely spaced and move freely. This is a qualitative model.";
-}
-temp.addEventListener("input",updateParticles);
-updateParticles();
+    "summary": "Atoms form bonds through interactions involving outer-shell electrons. Ionic bonding involves electron transfer and electrostatic attraction between oppositely charged ions; covalent bonding involves shared electron pairs; metallic bonding involves positive metal ions attracted to delocalised electrons. Intermolecular forces act between molecules and help explain boiling points and other physical properties. Electropositive and electronegative character describe tendencies to lose or attract electrons.",
+    "terms": [
+      "Valence electrons — electrons in the outermost occupied shell.",
+      "Ionic bond — attraction between oppositely charged ions.",
+      "Covalent bond — bond involving shared electron pair(s).",
+      "Metallic bond — attraction between metal ions and delocalised electrons.",
+      "Electropositive character — tendency to lose electrons and form positive ions.",
+      "Electronegativity — tendency of a bonded atom to attract shared electrons.",
+      "Intermolecular forces — attractions between molecules."
+    ],
+    "fact": "Copper conducts electricity because some electrons can move through its metallic structure; solid sodium chloride does not conduct well because its ions are not free to move."
+  },
+  {    "mainPoints": ["A balanced equation conserves each type of atom.", "Equation coefficients provide mole ratios.", "Convert between mass and moles using molar mass.", "Empirical formula gives the simplest ratio; molecular formula gives actual atom counts.", "Check units and identify the limiting reactant when reactants are supplied in unequal ratios."],
+    "analogy": "A balanced equation is like a recipe: coefficients tell how many ‘batches’ or moles combine. If a recipe needs 2 cups of one ingredient for every 1 cup of another, extra of only one ingredient cannot make unlimited servings.",
 
-const elements = {
-1:["Hydrogen","H"],2:["Helium","He"],3:["Lithium","Li"],
-4:["Beryllium","Be"],5:["Boron","B"],6:["Carbon","C"],
-7:["Nitrogen","N"],8:["Oxygen","O"],9:["Fluorine","F"],
-10:["Neon","Ne"],11:["Sodium","Na"],12:["Magnesium","Mg"],
-13:["Aluminium","Al"],14:["Silicon","Si"],15:["Phosphorus","P"],
-16:["Sulfur","S"],17:["Chlorine","Cl"],18:["Argon","Ar"],
-19:["Potassium","K"],20:["Calcium","Ca"]
-};
-function updateAtom(){
-  const n=+protons.value;
-  protonValue.textContent=n;
-  atomResult.innerHTML=`<h3>${elements[n][0]} (${elements[n][1]})</h3>
-  Atomic number: ${n}<br>Protons: ${n}<br>
-  Electrons in a neutral atom: ${n}<br>
-  <span class="muted">Neutron number depends on the isotope.</span>`;
-}
-protons.addEventListener("input",updateAtom);
-updateAtom();
+    "summary": "Stoichiometry relates amounts of substances in chemical reactions. Chemical formulae show the kinds and ratios of atoms or ions; empirical formulae give the simplest whole-number ratio, while molecular formulae give the actual number of atoms in a molecule. Balanced equations conserve atoms and provide mole ratios. The mole, Avogadro’s constant and molar mass connect microscopic particles to measurable quantities; calculations can use equation ratios and formula masses.",
+    "terms": [
+      "Chemical formula — symbols and subscripts showing a substance’s composition.",
+      "Empirical formula — simplest whole-number atom ratio.",
+      "Molecular formula — actual number of each type of atom in a molecule.",
+      "Avogadro constant — approximately 6.022 × 10²³ entities per mole.",
+      "Mole — amount containing the Avogadro number of specified entities.",
+      "Molar mass — mass of one mole of a substance.",
+      "Balanced equation — equation with equal numbers of each element’s atoms on both sides.",
+      "Stoichiometric ratio — ratio of coefficients in a balanced equation."
+    ],
+    "fact": "Equation coefficients give mole ratios, not direct mass ratios; masses must be converted using molar masses."
+  },
+  {    "mainPoints": ["Exothermic processes transfer energy to surroundings; endothermic processes absorb energy.", "Energy is needed to break bonds; energy is released when bonds form.", "The overall energy change depends on the balance of energy absorbed and released.", "Activation energy is the initial energy barrier.", "Aerobic respiration uses oxygen; anaerobic respiration does not."],
+    "analogy": "Energy changes are like a bank account: breaking bonds costs energy (a withdrawal), while forming bonds releases energy (a deposit). The net change depends on which total is larger.",
 
-function updateBond(){
-  bondResult.textContent=bondType.value==="ionic"
-    ? "Sodium transfers an outer electron to chlorine. The oppositely charged Na⁺ and Cl⁻ ions attract."
-    : "Two hydrogen atoms share a pair of electrons, forming a covalent bond.";
-}
-bondType.addEventListener("change",updateBond);
-updateBond();
+    "summary": "Energetics examines energy changes during physical and chemical processes. The system is the part being studied and the surroundings are everything around it. Exothermic changes transfer energy to the surroundings; endothermic changes take energy in. Enthalpy change describes heat transfer at constant pressure. Reactions require activation energy, and breaking and forming bonds involve energy changes. Aerobic respiration uses oxygen; anaerobic respiration releases energy without oxygen.",
+    "terms": [
+      "System — the reaction or process being studied.",
+      "Surroundings — everything outside the system.",
+      "Enthalpy change — heat change at constant pressure.",
+      "Exothermic — transfers energy to surroundings.",
+      "Endothermic — absorbs energy from surroundings.",
+      "Activation energy — minimum energy needed for a reaction to proceed.",
+      "Aerobic respiration — energy-releasing process using oxygen.",
+      "Anaerobic respiration — energy release without oxygen."
+    ],
+    "fact": "A reaction can release energy overall even though some energy is needed first to start it; that initial barrier is activation energy."
+  },
+  {    "mainPoints": ["A reversible reaction can proceed in both directions.", "Dynamic equilibrium requires a closed system and equal forward/reverse rates.", "At equilibrium, concentrations remain constant but reactions continue.", "Reactant/product concentrations are not necessarily equal.", "Temperature, pressure for gaseous systems, and concentration can shift equilibrium position."],
+    "analogy": "Dynamic equilibrium is like two escalators moving people in opposite directions at equal rates. People continue moving, but the number on each floor stays steady; equal rates do not mean equal numbers.",
 
-calculate.addEventListener("click",()=>{
-  const h=Math.max(0,Number(h2.value)||0);
-  const o=Math.max(0,Number(o2.value)||0);
-  const water=Math.min(h,2*o);
-  let limiting=h/2<o?"Hydrogen is limiting.":
-    h/2>o?"Oxygen is limiting.":"Both reactants are in the exact ratio.";
-  stoichResult.textContent=`${limiting} Maximum water formed: ${water.toFixed(2)} mol.`;
-});
+    "summary": "Some changes are reversible and some are effectively irreversible. In a closed system, dynamic equilibrium is reached when forward and reverse reaction rates become equal; the reactions continue, but concentrations remain constant. Changes in temperature, pressure (for gases) or concentration can affect the equilibrium position. Predict the direction of change by considering how the system responds to the disturbance.",
+    "terms": [
+      "Reversible reaction — reaction that can proceed in both directions.",
+      "Irreversible change — change that does not readily reverse under the same conditions.",
+      "Dynamic equilibrium — forward and reverse rates are equal in a closed system.",
+      "Equilibrium position — relative amounts of reactants and products at equilibrium.",
+      "Le Chatelier’s principle — a system at equilibrium responds to a disturbance in a way that tends to oppose it."
+    ],
+    "fact": "At equilibrium, the amounts of reactants and products are not necessarily equal; it is the forward and reverse reaction rates that are equal."
+  },
+  {    "mainPoints": ["Acid/base definitions depend on the model used.", "In Brønsted–Lowry theory, acids donate protons and bases accept protons.", "Alkalis are soluble bases that produce hydroxide ions in water.", "pH below 7 is acidic, 7 neutral, and above 7 alkaline in the usual school scale.", "Neutralisation commonly produces salt and water; acidic air pollutants can contribute to acid rain."],
+    "analogy": "An indicator is like a colour-coded traffic light for a solution: it gives a useful clue about pH, but the colour range and conditions matter, so it is not always an exact pH measurement.",
 
-function updatePH(){
-  const p=+ph.value;
-  phValue.textContent=p;
-  phResult.textContent=`pH ${p}: ${p<7?"acidic":p>7?"alkaline":"neutral"} in the standard school pH model.`;
-}
-ph.addEventListener("input",updatePH);
-updatePH();
+    "summary": "Acid–base chemistry compares how acids and bases behave and how different models define them. Indicators and pH help identify acidity and alkalinity. In water, acids increase hydrogen-ion concentration; alkalis are soluble bases that produce hydroxide ions. Neutralisation reactions commonly form salt and water. Acidic pollutants can also lead to acid rain and environmental damage.",
+    "terms": [
+      "Acid — in the Brønsted–Lowry model, a proton donor.",
+      "Base — in the Brønsted–Lowry model, a proton acceptor.",
+      "Alkali — soluble base that produces hydroxide ions in water.",
+      "Indicator — substance that changes colour over a pH range.",
+      "pH — measure related to hydrogen-ion concentration.",
+      "Neutralisation — reaction between an acid and a base.",
+      "Acid rain — precipitation made unusually acidic by atmospheric pollutants."
+    ],
+    "fact": "A change of one pH unit corresponds to a tenfold change in hydrogen-ion concentration in dilute aqueous solutions."
+  },
+  {    "mainPoints": ["Elements are arranged by increasing atomic number.", "Rows are periods; columns are groups.", "Elements in a group often have similar chemistry because of their outer-electron arrangements.", "Atomic radius generally decreases across a period and increases down a group.", "Periodic trends are patterns, not rules without exceptions."],
+    "analogy": "The periodic table is like a map arranged by atomic number. Groups are columns of ‘neighbours’ with related outer-electron patterns; trends across a row are like gradual changes across a landscape, with occasional exceptions.",
 
-function updateEquilibrium(){
-  const v=equilibrium.value;
-  const messages={
-    none:"At equilibrium, forward and reverse reaction rates are equal. Concentrations remain constant.",
-    reactant:"Adding reactant tends to shift equilibrium toward products in this simplified model.",
-    product:"Removing product tends to shift equilibrium toward products to replace some removed material.",
-    heat:"For an endothermic forward reaction, higher temperature favours the forward direction."
-  };
-  equilibriumResult.textContent=messages[v];
-}
-equilibrium.addEventListener("change",updateEquilibrium);
-updateEquilibrium();
+    "summary": "The periodic table arranges elements in order of increasing atomic number. Horizontal rows are periods and vertical columns are groups. Electron arrangements help explain recurring patterns in atomic size, ionisation energy, electronegativity and metallic character. Trends can be used to predict and compare element behaviour, while remembering that trends have exceptions.",
+    "terms": [
+      "Periodic table — arrangement of elements by increasing atomic number.",
+      "Group — vertical column.",
+      "Period — horizontal row.",
+      "Electronic configuration — arrangement of electrons in shells or energy levels.",
+      "Atomic radius — measure of atomic size.",
+      "Ionisation energy — energy required to remove an electron from a gaseous atom.",
+      "Metallic character — tendency to lose electrons and form positive ions.",
+      "Electronegativity — ability to attract shared electrons in a bond."
+    ],
+    "fact": "The modern periodic table is ordered by atomic number rather than simply by atomic mass."
+  },
+  {    "mainPoints": ["Group 1 elements are alkali metals; Group 17 elements are halogens; Group 18 elements are noble gases.", "Group 1 metals generally become more reactive down the group.", "Halogens generally become less reactive down the group.", "Metals are often good conductors and malleable; non-metals often have different physical properties.", "Use observations and safe demonstrations rather than handling reactive elements directly."],
+    "analogy": "Group trends are like family resemblances: relatives share features, but the details change down the family. For example, alkali metals become generally more reactive down the group, while halogens trend the other way.",
 
-function updateTrend(){
-  const messages={
-    radius:"Atomic radius generally decreases across a period as nuclear charge increases.",
-    metal:"Metallic character generally decreases across a period from left to right.",
-    reactivity:"Group 1 metals generally become more reactive down the group."
-  };
-  trendResult.textContent=messages[trend.value];
-}
-trend.addEventListener("change",updateTrend);
-updateTrend();
+    "summary": "Elements in the same group have related outer-electron arrangements, so they often show similar chemistry. Group properties and reactivity change in patterns down a group. Group 1 metals generally become more reactive down the group, while Group 17 halogens generally become less reactive down the group. Metals and non-metals also differ in properties such as conductivity, lustre and malleability; noble gases are comparatively unreactive.",
+    "terms": [
+      "Alkali metals — Group 1 metals.",
+      "Halogens — Group 17 non-metals.",
+      "Noble gases — Group 18 elements with very low reactivity.",
+      "Reactivity — tendency of a substance to undergo chemical reaction.",
+      "Malleability — ability to be hammered into sheets.",
+      "Ductility — ability to be drawn into wires."
+    ],
+    "fact": "The reactivity trend down a group depends on the group: alkali metals become more reactive down the group, but halogens generally become less reactive."
+  },
+  {    "mainPoints": ["Pollution can affect air, water and land.", "Carbon dioxide and other greenhouse gases contribute to the enhanced greenhouse effect.", "Sulfur dioxide and nitrogen oxides can contribute to acid deposition.", "Nutrient runoff can cause eutrophication and oxygen depletion.", "Prevention, monitoring and appropriate waste treatment reduce environmental harm."],
+    "analogy": "Pollution is like adding unwanted ingredients to a shared kitchen or water tank: the source, amount and removal method determine the harm. Different pollutants need different solutions; one fix does not solve every problem.",
 
-const alkaneNames=["methane","ethane","propane","butane","pentane","hexane","heptane","octane"];
-function updateHydrocarbon(){
-  const n=+carbon.value;
-  carbonValue.textContent=n;
-  hydrocarbonResult.innerHTML=`<h3>${alkaneNames[n-1]}</h3>
-  Formula: C<sub>${n}</sub>H<sub>${2*n+2}</sub>
-  <p>An open-chain alkane follows CₙH₂ₙ₊₂.</p>`;
-}
-carbon.addEventListener("input",updateHydrocarbon);
-updateHydrocarbon();
+    "summary": "Environmental chemistry applies chemical ideas to air, water and the wider environment. It examines sources, effects and control of pollutants, including carbon monoxide, sulfur and nitrogen oxides, particulates and water contaminants. Greenhouse gases contribute to global warming by absorbing infrared radiation; ozone depletion and water pollution are different environmental issues with different causes. Prevention, treatment and evidence-based monitoring help reduce harm.",
+    "terms": [
+      "Pollutant — substance or agent present at a level that causes harm.",
+      "Greenhouse gas — gas that absorbs and emits infrared radiation.",
+      "Global warming — long-term rise in Earth’s average surface temperature.",
+      "Particulate matter — tiny solid particles or liquid droplets suspended in air.",
+      "Potable water — water safe to drink.",
+      "Eutrophication — nutrient enrichment of water that can lead to oxygen depletion."
+    ],
+    "fact": "Global warming and ozone-layer depletion are not the same problem: they involve different atmospheric processes, even though some chemicals can affect both."
+  },
+  {    "mainPoints": ["Hydrocarbons contain only carbon and hydrogen.", "Alkanes are saturated and open-chain alkanes follow CₙH₂ₙ₊₂.", "Alkenes contain a carbon–carbon double bond; simple open-chain alkenes with one double bond follow CₙH₂ₙ.", "Complete combustion generally forms carbon dioxide and water; incomplete combustion may form carbon monoxide or soot.", "Small molecules can join in addition polymerisation, for example ethene forming poly(ethene)."],
+    "analogy": "Hydrocarbons are like different kinds of building chains made from carbon and hydrogen. Alkanes use single-bond links; alkenes have at least one double-bond link that allows different reactions.",
 
-const pollutants={
-  co2:"Excess carbon dioxide contributes to the enhanced greenhouse effect. Cleaner energy and energy efficiency can reduce emissions.",
-  so2:"Sulfur dioxide can cause respiratory irritation and acid deposition. Cleaner fuels and emission controls help reduce it.",
-  plastic:"Plastic waste harms aquatic environments. Reduce, reuse and dispose of waste responsibly.",
-  nitrate:"Nitrate runoff can cause eutrophication and oxygen depletion. Careful fertiliser use helps prevent it."
-};
-function updatePollution(){
-  pollutionResult.textContent=pollutants[pollutant.value];
-}
-pollutant.addEventListener("change",updatePollution);
-updatePollution();
+    "summary": "Hydrocarbons contain only carbon and hydrogen. Alkanes are saturated and have only single carbon–carbon bonds; open-chain alkanes follow CₙH₂ₙ₊₂. Alkenes contain at least one carbon–carbon double bond and open-chain members with one double bond follow CₙH₂ₙ. Hydrocarbons can burn in oxygen; incomplete combustion may produce carbon monoxide or soot. Their structures and reactions help distinguish families and explain their uses.",
+    "terms": [
+      "Hydrocarbon — compound containing only carbon and hydrogen.",
+      "Alkane — saturated hydrocarbon with only C–C single bonds.",
+      "Alkene — hydrocarbon containing at least one C=C double bond.",
+      "Saturated — contains no carbon–carbon double or triple bonds.",
+      "Unsaturated — contains a carbon–carbon double or triple bond.",
+      "Combustion — reaction with oxygen that releases energy.",
+      "Structural formula — representation showing how atoms are connected."
+    ],
+    "fact": "Ethene can join with many other ethene molecules to make poly(ethene), a common plastic."
+  },
+  {    "mainPoints": ["Qualitative data describe; quantitative data use numbers.", "Record units and sensible precision.", "Accuracy is closeness to an accepted value; precision is consistency of repeated values.", "Repeats help reveal variation and anomalies.", "Tables and graphs should make patterns clear and support evidence-based conclusions."],
+    "analogy": "Taking repeated measurements is like asking several independent clocks for the time: a cluster of readings builds confidence, while one unusual result should be checked rather than silently ignored.",
 
-let readings=[];
-function updateMeasurements(){
-  if(!readings.length){
-    measurementResult.textContent="No readings yet.";
-    return;
+    "summary": "Empirical data collection and analysis use observations and measurements to support scientific conclusions. Record values with appropriate units and precision, organise them in tables, choose suitable graphs and identify patterns or anomalies. Accuracy means closeness to an accepted value; precision concerns the consistency of repeated results. Repeating trials can reveal random variation, while a fair investigation controls relevant variables.",
+    "terms": [
+      "Qualitative data — descriptive observations.",
+      "Quantitative data — numerical measurements.",
+      "Accuracy — closeness to an accepted value.",
+      "Precision — closeness of repeated measurements to one another.",
+      "Variable — factor that can change in an investigation.",
+      "Anomaly — result that does not fit the overall pattern.",
+      "Mean — sum of values divided by the number of values.",
+      "Repeatability — consistency when measurements are repeated under the same conditions."
+    ],
+    "fact": "A measurement written as 12.0 cm communicates a different level of precision from 12 cm, even though the numerical values appear similar."
+  },
+  {    "mainPoints": ["Select apparatus suited to the measurement.", "Identify independent, dependent and control variables in an investigation.", "Read scales at eye level to reduce parallax error.", "Follow risk assessments, teacher instructions and required PPE.", "Never taste chemicals or smell them directly; dispose of materials as instructed."],
+    "analogy": "A fair test is like comparing two plants: change one factor (such as light), measure the outcome (growth), and keep other factors (water and soil) as similar as possible.",
+
+    "summary": "Practical chemistry requires safe use of apparatus, careful measurement, clear observation and honest recording. Choose equipment suited to the task, follow instructions and safety symbols, and use protective equipment when required. In a fair test, change the independent variable, measure the dependent variable and control other relevant factors. Read scales correctly, reduce sources of error and dispose of chemicals as instructed.",
+    "terms": [
+      "Independent variable — factor deliberately changed.",
+      "Dependent variable — factor measured or observed.",
+      "Control variable — factor kept constant.",
+      "Meniscus — curved surface of a liquid in a container.",
+      "Parallax error — reading error caused by viewing a scale from an angle.",
+      "PPE — personal protective equipment.",
+      "Hazard — potential source of harm; risk — likelihood and severity of harm."
+    ],
+    "fact": "For many clear aqueous liquids, read the bottom of the meniscus at eye level to reduce parallax error; always follow the specific method for the liquid and apparatus."
   }
-  const mean=readings.reduce((a,b)=>a+b,0)/readings.length;
-  measurementResult.textContent=`Readings: ${readings.join(", ")} cm. Mean: ${mean.toFixed(2)} cm.`;
-}
-addMeasurement.addEventListener("click",()=>{
-  const n=Number(measurement.value);
-  if(measurement.value!=="" && Number.isFinite(n)){
-    readings.push(n);
-    updateMeasurements();
-  }
-});
-clearMeasurements.addEventListener("click",()=>{
-  readings=[];
-  updateMeasurements();
-});
-
-const questions=[
-[1,"Gas particles are generally…",["Fixed in a lattice","Far apart and moving randomly","Unable to move","Joined permanently"],1,"Gas particles are widely spaced and move randomly."],
-[1,"Diffusion usually speeds up when temperature rises because particles…",["Gain kinetic energy","Become heavier","Stop moving","Lose all collisions"],0,"Higher temperature generally increases average kinetic energy."],
-[2,"Atomic number equals the number of…",["Neutrons","Protons","Shells","Isotopes"],1,"Atomic number is defined by proton number."],
-[2,"Isotopes of an element have the same number of…",["Protons","Neutrons","Protons plus neutrons","Shells in every case"],0,"Isotopes have equal proton numbers but different neutron numbers."],
-[3,"An ionic bond is the attraction between…",["Neutral molecules only","Oppositely charged ions","Neutrons","Shared nuclei"],1,"Ionic bonding is electrostatic attraction between oppositely charged ions."],
-[3,"Covalent bonding involves…",["Sharing electron pairs","Sharing neutrons","Exchanging protons","Removing all electrons"],0,"Covalent bonds form when atoms share electron pairs."],
-[4,"Which equation is balanced?",["H₂ + O₂ → H₂O","2H₂ + O₂ → 2H₂O","H₂ + 2O₂ → H₂O","2H₂ + 2O₂ → H₂O"],1,"There are four hydrogen atoms and two oxygen atoms on both sides."],
-[4,"The H₂:O₂ mole ratio in 2H₂ + O₂ → 2H₂O is…",["1:2","2:1","1:1","1:4"],1,"The coefficients give a 2:1 ratio."],
-[5,"An exothermic reaction…",["Releases energy to surroundings","Always absorbs heat","Cannot change temperature","Has no energy change"],0,"Exothermic reactions release energy to their surroundings."],
-[5,"An endothermic process absorbs energy from…",["The surroundings","The nucleus only","No source","A catalyst only"],0,"Endothermic processes take in energy."],
-[6,"At dynamic equilibrium, forward and reverse reaction rates are…",["Zero","Equal","Always increasing","Equal to the concentrations"],1,"Equal rates make concentrations constant in a closed system."],
-[6,"A catalyst generally…",["Changes the equilibrium position","Speeds both directions","Stops the reverse reaction","Changes the elements"],1,"A catalyst helps equilibrium be reached faster but does not change its position."],
-[7,"A solution of pH 3 is…",["Alkaline","Neutral","Acidic","A metal"],2,"A pH below 7 is acidic in the standard school scale."],
-[7,"Acid + base commonly produces salt and…",["Water","Oxygen","Carbon","Helium"],0,"Neutralisation commonly produces salt and water."],
-[8,"Elements in the same group often have similar properties because of similar numbers of…",["Neutrons","Outer-shell electrons","Isotopes","Nuclei"],1,"Outer-shell electrons strongly influence chemical behaviour."],
-[8,"Atomic radius generally decreases across a period because…",["Nuclear charge increases","Protons disappear","Atoms lose their nuclei","All electrons vanish"],0,"Increasing nuclear charge attracts electrons more strongly overall."],
-[9,"Group 1 metals generally become more reactive…",["Up the group","Down the group","Across every period","When frozen"],1,"The outer electron is generally easier to remove down Group 1."],
-[9,"Noble gases are relatively unreactive because they have…",["Full outer electron shells","No protons","No electrons","No atomic nuclei"],0,"Their outer electron shells are stable."],
-[10,"Which gas contributes to the enhanced greenhouse effect?",["Helium","Carbon dioxide","Neon","Argon"],1,"Carbon dioxide is a greenhouse gas."],
-[10,"Excess nitrates entering a lake can cause…",["Eutrophication","Lower gravity","Ionic bonding","Isotope formation"],0,"Nutrient enrichment can lead to algal growth and oxygen depletion."],
-[11,"The general formula for an open-chain alkane is…",["CₙH₂ₙ","CₙH₂ₙ₊₂","CₙHₙ","CₙH₂ₙ₋₂"],1,"Open-chain alkanes follow CₙH₂ₙ₊₂."],
-[11,"An unsaturated hydrocarbon contains a…",["C=C or C≡C bond","Only single bonds","Metallic bond","Nuclear bond"],0,"Alkenes have C=C bonds and alkynes have C≡C bonds."],
-[12,"Repeating a measurement helps to…",["Identify variation","Remove units","Guarantee identical readings","Change the substance"],0,"Repeated readings help assess variation and reliability."],
-[12,"The independent variable is the one that is…",["Measured as the result","Deliberately changed","Never recorded","Always ignored"],1,"A fair test changes the independent variable."],
-[13,"The safest approach to an unfamiliar chemical is to…",["Taste it","Smell it directly","Follow safety instructions and use PPE","Mix it with all chemicals"],2,"Follow teacher instructions and suitable protective procedures."],
-[13,"A measuring cylinder measures liquid…",["Volume","Mass","Temperature","Current"],0,"A measuring cylinder measures volume."],
-[2,"A neutral atom has 11 protons. How many electrons?",["10","11","12","22"],1,"A neutral atom has equal numbers of protons and electrons."],
-[3,"When sodium becomes Na⁺, it has…",["Gained one electron","Lost one electron","Gained one proton","Lost one proton"],1,"A positive charge forms when an electron is lost."],
-[4,"2 mol H₂ react with 1 mol O₂. How much water forms?",["1 mol","2 mol","3 mol","4 mol"],1,"The balanced equation produces 2 mol of water."],
-[7,"Which indicator changes colour over a range of pH values?",["Universal indicator","Copper wire","Sodium chloride","Pure water alone"],0,"Universal indicator gives different colours across the pH scale."]
 ];
-
-let answers=Array(questions.length).fill(null);
-let finished=false;
-
-function feedback(i){
-  const q=questions[i];
-  return (answers[i]===q[3]
-    ? '<span class="good"><b>Correct!</b></span> '
-    : '<span class="bad"><b>Not quite.</b></span> ')
-    + q[4];
-}
-
-function updateScore(){
-  const score=answers.reduce((sum,a,i)=>sum+(a===questions[i][3]?1:0),0);
-  const attempted=answers.filter(a=>a!==null).length;
-  quizScore.textContent=`${score}/30`;
-  homeScore.textContent=`${score}/30`;
-  progressText.textContent=`${attempted} of 30 questions attempted.`;
-}
-
-function renderQuestions(){
-  document.getElementById("questions").innerHTML=questions.map((q,i)=>`
-    <div class="question">
-      <b>${i+1}. ${q[1]}</b>
-      <p class="muted">Revision area: ${chapters[q[0]-1][0]}</p>
-      <div class="options">
-        ${q[2].map((o,j)=>`
-          <button class="option ${answers[i]===j?"selected":""}"
-            data-q="${i}" data-a="${j}" ${finished?"disabled":""}>
-            ${"ABCD"[j]}. ${o}
-          </button>`).join("")}
-      </div>
-      <div class="feedback">${answers[i]!==null?feedback(i):""}</div>
-    </div>`).join("");
-
-  document.querySelectorAll(".option").forEach(btn=>{
-    btn.addEventListener("click",()=>{
-      if(finished)return;
-      answers[+btn.dataset.q]=+btn.dataset.a;
-      renderQuestions();
-      updateScore();
-    });
-  });
-  updateScore();
-}
-
-finish.addEventListener("click",()=>{
-  finished=true;
-  renderQuestions();
-  const score=answers.reduce((sum,a,i)=>sum+(a===questions[i][3]?1:0),0);
-  const unanswered=answers.filter(a=>a===null).length;
-  finalResult.style.display="block";
-  finalResult.innerHTML=`<h2>Result: ${score}/30 (${Math.round(score/30*100)}%)</h2>
-    <p>${score>=26?"Excellent work!":
-    score>=21?"Good progress. Review the explanations for missed questions.":
-    score>=15?"Keep practising. Revise the relevant chapters and try again.":
-    "Revisit the chapter map and simulations before retaking the test."}</p>
-    <p>Unanswered questions: ${unanswered}</p>`;
-  finalResult.scrollIntoView({behavior:"smooth",block:"center"});
-});
-
-reset.addEventListener("click",()=>{
-  answers=Array(questions.length).fill(null);
-  finished=false;
-  finalResult.style.display="none";
-  renderQuestions();
-});
-
-renderQuestions();
+document.getElementById('chapterDetails').innerHTML=chapterNotes.map((n,i)=>`<details><summary>Chapter ${i+1}: ${chapters[i][0]}</summary><div class="detail-body"><h4>Chapter Summary</h4><p>${n.summary}</p><h4>Main Points to Remember</h4><ul class="main-points">${n.mainPoints.map(x=>`<li>${x}</li>`).join('')}</ul><h4>Key Terms & Definitions</h4><ul>${n.terms.map(t=>`<li>${t}</li>`).join('')}</ul><h4>Real-Life Analogy</h4><div class="analogy">${n.analogy}</div><h4>Interesting Fact</h4><div class="fact">${n.fact}</div></div></details>`).join('');
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>go(t.dataset.page)));
+const temp=document.getElementById('temp'), particles=document.getElementById('particles');
+for(let i=0;i<32;i++){let p=document.createElement('div');p.className='particle';p.dataset.i=i;particles.appendChild(p)}
+function drawParticles(){let v=+temp.value;document.getElementById('tempVal').textContent=v;let state=v<0?'solid-like':v<65?'liquid-like':'gas-like';[...particles.children].forEach((p,i)=>{let x,y;if(state==='solid-like'){x=20+(i%8)*20+(i%2)*2;y=25+Math.floor(i/8)*31+(i%3)*2}else if(state==='liquid-like'){x=12+(i%8)*22+(i%3)*2;y=18+Math.floor(i/8)*36+(i%4)*2}else{x=8+((i*47+v*7)%90);y=8+((i*31+v*11)%78)}p.style.left=x+'%';p.style.top=y+'%';p.style.transform=`scale(${state==='gas-like'?1.05:.85})`});document.getElementById('stateOut').textContent=state==='solid-like'?'Solid-like model: particles remain close and vibrate around fixed positions.':state==='liquid-like'?'Liquid-like model: particles remain close but can move past one another.':'Gas-like model: particles are spread out and move freely. Heating generally increases particle kinetic energy; phase changes occur at substance-specific conditions.'}
+temp.addEventListener('input',drawParticles);drawParticles();
+const elementNames={1:['Hydrogen','H'],2:['Helium','He'],3:['Lithium','Li'],4:['Beryllium','Be'],5:['Boron','B'],6:['Carbon','C'],7:['Nitrogen','N'],8:['Oxygen','O'],9:['Fluorine','F'],10:['Neon','Ne'],11:['Sodium','Na'],12:['Magnesium','Mg'],13:['Aluminium','Al'],14:['Silicon','Si'],15:['Phosphorus','P'],16:['Sulfur','S'],17:['Chlorine','Cl'],18:['Argon','Ar'],19:['Potassium','K'],20:['Calcium','Ca']};
+function drawAtom(){let n=+document.getElementById('protons').value;document.getElementById('atomVisual').innerHTML=`<div class="nucleus">${n} p⁺</div><div class="electron">${n} e⁻</div>`;document.getElementById('atomName').textContent=elementNames[n][0]+' ('+elementNames[n][1]+')';document.getElementById('atomInfo').textContent=`Atomic number = ${n}. A neutral atom has ${n} electrons. For the most common rounded mass-number example, the neutron count depends on the isotope; atomic number alone does not determine it.`}
+document.getElementById('protons').addEventListener('input',drawAtom);drawAtom();
+function drawBond(){let ionic=document.getElementById('bondType').value==='ionic';document.getElementById('bondVisual').innerHTML=ionic?'<div class="chem-equation">Na • → Cl  ⟶  Na⁺ + Cl⁻</div>':'<div class="chem-equation">H • + • H  ⟶  H : H</div>';document.getElementById('bondOut').textContent=ionic?'Ionic bonding model: sodium transfers an outer electron to chlorine. Electrostatic attraction holds Na⁺ and Cl⁻ together.':'Covalent bonding model: each hydrogen contributes one electron to a shared pair, giving each hydrogen a filled first shell.'}
+document.getElementById('bondType').addEventListener('change',drawBond);drawBond();
+document.getElementById('calcStoich').addEventListener('click',()=>{let h=Math.max(0,+document.getElementById('h2').value||0),o=Math.max(0,+document.getElementById('o2').value||0);let water=Math.min(h,2*o);let lim=h/2<o?'H₂ is limiting':h/2>o?'O₂ is limiting':'Neither: exact stoichiometric ratio';document.getElementById('stoichOut').textContent=`${lim}. Maximum water formed = ${water.toFixed(2)} mol (assuming complete reaction). H₂ consumed = ${water.toFixed(2)} mol; O₂ consumed = ${(water/2).toFixed(2)} mol.`});
+function drawPH(){let p=+document.getElementById('ph').value;document.getElementById('phVal').textContent=p;document.getElementById('phOut').textContent=`pH ${p}: ${p<7?'acidic':p>7?'alkaline':'neutral'} in the simplified pH scale. Each pH unit represents a tenfold change in hydrogen-ion concentration.`;document.getElementById('phBar').style.width=(p/14*100)+'%';document.getElementById('phBar').style.background=p<7?'#ff9292':p>7?'#8db8ff':'#6ee7a8'}
+document.getElementById('ph').addEventListener('input',drawPH);drawPH();
+function drawEq(){let s=document.getElementById('shift').value,r=50,p=50,msg='At equilibrium, forward and reverse reaction rates are equal; concentrations are constant, not necessarily equal.';if(s==='more'){r=65;p=35;msg='Adding reactant disturbs equilibrium; the system shifts toward products in this simplified model.'}if(s==='heat'){r=35;p=65;msg='For an endothermic forward reaction, increasing temperature favours the forward direction in this simplified model.'}if(s==='remove'){r=35;p=65;msg='Removing product encourages the forward reaction to replace some of the removed product.'}document.getElementById('reactBar').style.width=(r*2)+'px';document.getElementById('prodBar').style.width=(p*2)+'px';document.getElementById('reactVal').textContent=r+' relative units';document.getElementById('prodVal').textContent=p+' relative units';document.getElementById('eqOut').textContent=msg+' Bar sizes are illustrative, not experimental predictions.'}
+document.getElementById('shift').addEventListener('change',drawEq);drawEq();
+const trends={radius:'Across a period, atomic radius generally decreases because nuclear charge increases while added electrons enter the same main shell.',metal:'Across a period, metallic character generally decreases from left to right.',group:'Group 1 metals generally become more reactive down the group because the outer electron is farther from the nucleus and easier to remove.'};function drawTrend(){document.getElementById('trendOut').textContent=trends[document.getElementById('trend').value]}document.getElementById('trend').addEventListener('change',drawTrend);drawTrend();
+const names=['methane','ethane','propane','butane','pentane','hexane','heptane','octane'];function drawAlkane(){let n=+document.getElementById('carbon').value;document.getElementById('carbonVal').textContent=n;document.getElementById('alkaneFormula').textContent=`C${sub(n)}H${sub(2*n+2)}`;document.getElementById('alkaneName').textContent=`${names[n-1][0].toUpperCase()+names[n-1].slice(1)}: saturated hydrocarbon with only single carbon-carbon bonds.`;document.getElementById('alkaneDrawing').innerHTML=Array.from({length:n},(_,i)=>`<span style="border:2px solid #59d5c7;border-radius:9px;padding:7px 10px">${i===0?'CH₃':i===n-1?'CH₃':'CH₂'}</span>`).join('<span style="align-self:center">—</span>')}function sub(n){return String(n).replace(/\d/g,d=>'₀₁₂₃₄₅₆₇₈₉'[+d])}document.getElementById('carbon').addEventListener('input',drawAlkane);drawAlkane();
+const poll={co2:'Source: burning fossil fuels and deforestation. Impact: enhanced greenhouse effect and climate change. Responses include energy efficiency, cleaner energy and protecting forests.',so2:'Source: burning sulfur-containing fuels. Impact: respiratory irritation and acid deposition. Responses include low-sulfur fuels and flue-gas desulfurisation.',plastic:'Source: litter and poor waste management. Impact: harm to aquatic life and microplastic pollution. Responses include reducing single-use plastics, reuse and safe waste collection.',nitrate:'Source: fertiliser and sewage runoff. Impact: eutrophication and oxygen depletion in water. Responses include careful fertiliser use and buffer strips.'};function drawPoll(){document.getElementById('pollutionOut').textContent=poll[document.getElementById('pollutant').value]}document.getElementById('pollutant').addEventListener('change',drawPoll);drawPoll();
+let measurements=[];function showMeasures(){document.getElementById('measureOut').textContent=measurements.length?`Readings: ${measurements.join(', ')} cm. Mean = ${(measurements.reduce((a,b)=>a+b,0)/measurements.length).toFixed(2)} cm. Repeated readings help identify variation.`:'No measurements recorded yet.'}document.getElementById('addMeasure').addEventListener('click',()=>{let v=Number(document.getElementById('measurement').value);if(Number.isFinite(v)){measurements.push(v);showMeasures()}});document.getElementById('clearMeasure').addEventListener('click',()=>{measurements=[];showMeasures()});
+const qs=[
+[1,'Which statement best describes particles in a gas?',['They vibrate in fixed positions','They are far apart and move randomly','They cannot move','They are arranged in a fixed lattice'],1,'Gas particles are widely spaced and move randomly.'],
+[1,'Diffusion is generally faster at higher temperature because particles…',['gain kinetic energy','become heavier','stop colliding','lose all attraction'],0,'Higher temperature generally increases average kinetic energy.'],
+[2,'The atomic number of an element equals its number of…',['neutrons','neutrons plus electrons','protons','shells'],2,'Atomic number is defined by proton number.'],
+[2,'Isotopes of the same element have the same number of…',['protons but different neutrons','neutrons but different protons','protons and neutrons always','electron shells only'],0,'Isotopes have the same proton number but different neutron numbers.'],
+[3,'An ionic bond is mainly the attraction between…',['two neutral atoms','oppositely charged ions','two neutrons','shared proton pairs'],1,'Ionic bonding is electrostatic attraction between oppositely charged ions.'],
+[3,'A covalent bond forms when atoms…',['share electron pairs','share neutrons','lose all electrons','exchange nuclei'],0,'Covalent bonds involve shared pairs of electrons.'],
+[4,'Which equation is balanced?',['H₂ + O₂ → H₂O','2H₂ + O₂ → 2H₂O','H₂ + 2O₂ → H₂O','2H₂ + 2O₂ → H₂O'],1,'Both sides contain four hydrogen atoms and two oxygen atoms.'],
+[4,'In 2H₂ + O₂ → 2H₂O, the mole ratio H₂:O₂ is…',['1:2','2:1','1:1','2:2:1'],1,'Coefficients give the ratio 2:1.'],
+[5,'An exothermic reaction…',['takes in heat from surroundings','releases energy to surroundings','cannot change temperature','always needs sunlight'],1,'Exothermic processes release energy to the surroundings.'],
+[5,'In an endothermic process, the surroundings may feel…',['warmer','cooler','unchanged in every case','radioactive'],1,'Energy is absorbed from the surroundings.'],
+[6,'At dynamic equilibrium in a closed system, forward and reverse reaction rates are…',['both zero','equal','always increasing','equal to concentrations'],1,'The rates are equal, so macroscopic concentrations remain constant.'],
+[6,'A catalyst usually changes equilibrium by…',['increasing product amount permanently','speeding both directions without changing equilibrium position','stopping reverse reaction','changing the atoms'],1,'A catalyst speeds attainment of equilibrium but does not change its position.'],
+[7,'A solution with pH 3 is…',['alkaline','neutral','acidic','a pure metal'],2,'Values below 7 are acidic in the standard school pH scale.'],
+[7,'Acid + base generally produces salt and…',['hydrogen only','water','oxygen','carbon'],1,'Neutralisation commonly produces salt and water.'],
+[8,'Elements in the same group often have similar chemical properties because they have similar numbers of…',['neutrons','occupied shells only','outer-shell electrons','isotopes'],2,'Valence-electron patterns strongly influence chemical properties.'],
+[8,'Across a period, atomic radius generally…',['increases greatly','decreases','never changes','equals atomic number'],1,'Increasing nuclear charge pulls electrons in the same main shell closer overall.'],
+[9,'Which is a general trend for Group 1 metals down the group?',['Reactivity decreases','Reactivity generally increases','They become noble gases','They lose all protons'],1,'The outer electron becomes easier to remove down the group.'],
+[9,'Why do noble gases generally show low reactivity?',['They have full outer electron shells','They have no nuclei','They are all liquids','They contain no electrons'],0,'Their outer shells are stable, so they rarely gain, lose or share electrons.'],
+[10,'Which gas is a major contributor to the enhanced greenhouse effect when present in excess?',['Oxygen','Carbon dioxide','Helium','Neon'],1,'Carbon dioxide is a greenhouse gas; human activities increase its atmospheric concentration.'],
+[10,'Excess nitrate entering lakes can cause…',['eutrophication','lower gravity','metal bonding','isotopes'],0,'Nutrient enrichment can trigger algal growth and oxygen depletion.'],
+[11,'Which is the general formula for an open-chain alkane?',['CₙH₂ₙ','CₙH₂ₙ₊₂','CₙHₙ','CₙH₂ₙ₋₂'],1,'Alkanes are saturated open-chain hydrocarbons with formula CₙH₂ₙ₊₂.'],
+[11,'An unsaturated hydrocarbon contains at least one…',['C–C single bond only','C=C or C≡C bond','ionic bond','metal atom'],1,'Alkenes contain a C=C double bond; alkynes contain a C≡C triple bond.'],
+[12,'Why repeat a measurement?',['To guarantee identical results','To identify variation and improve reliability','To remove units','To change the hypothesis'],1,'Repeated readings help identify anomalies and estimate a representative value.'],
+[12,'The independent variable is the one that is…',['measured as the outcome','kept exactly the same','deliberately changed','never recorded'],2,'A fair test deliberately changes the independent variable and measures the dependent variable.'],
+[13,'Which is the safest way to investigate an unfamiliar chemical?',['Taste a tiny amount','Smell it directly','Follow the teacher’s risk instructions and use PPE','Mix it with every available chemical'],2,'Follow risk assessment, instructions and appropriate personal protective equipment.'],
+[13,'A measuring cylinder is primarily used to measure…',['volume of liquid','mass of a solid','temperature','electrical current'],0,'A measuring cylinder measures liquid volume.'],
+[2,'A neutral atom has 11 protons. How many electrons does it have?',['10','11','12','22'],1,'In a neutral atom, proton number equals electron number.'],
+[3,'When sodium forms Na⁺, it has…',['gained one electron','lost one electron','gained one proton','lost one neutron'],1,'A +1 charge means one electron has been lost.'],
+[4,'If 2 mol of hydrogen react completely with 1 mol of oxygen, how many mol of water form?',['1 mol','2 mol','3 mol','4 mol'],1,'The balanced equation gives 2 mol H₂O from 2 mol H₂ and 1 mol O₂.'],
+[7,'Which indicator is commonly used to estimate pH by a range of colours?',['Universal indicator','Copper wire','Sodium chloride','Distilled water alone'],0,'Universal indicator changes colour across a range of pH values.']
+];
+let answers=Array(qs.length).fill(null),finished=false;
+function renderQuiz(){document.getElementById('questions').innerHTML=qs.map((q,i)=>`<div class="question" id="q${i}"><div class="qhead"><span class="qnum">${i+1}</span><div><b>${q[1]}</b><div class="small muted">Revision area: ${chapters[q[0]-1][0]}</div></div></div><div class="options">${q[2].map((o,j)=>`<button class="option ${answers[i]===j?'selected':''}" data-q="${i}" data-a="${j}" ${finished?'disabled':''}><b>${'ABCD'[j]}.</b> ${o}</button>`).join('')}</div><div class="feedback" id="fb${i}">${answers[i]!==null?feedback(i):''}</div></div>`).join('');document.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{if(finished)return;answers[+b.dataset.q]=+b.dataset.a;renderQuiz();updateScore()}));updateScore()}
+function feedback(i){let q=qs[i];return (answers[i]===q[3]?'<span style="color:var(--good);font-weight:800">Correct.</span> ':'<span style="color:var(--bad);font-weight:800">Not quite.</span> ')+q[4]}
+function updateScore(){let n=answers.reduce((s,a,i)=>s+(a===qs[i][3]?1:0),0),done=answers.filter(a=>a!==null).length;document.getElementById('quizScore').textContent=`${n}/30`;document.getElementById('homeScore').textContent=`${n}/30`;document.getElementById('quizProgress').style.width=(done/30*100)+'%';document.getElementById('homeProgress').style.width=(done/30*100)+'%';document.getElementById('progressText').textContent=`${done} of 30 questions attempted.`}
+document.getElementById('finishQuiz').addEventListener('click',()=>{finished=true;renderQuiz();let n=answers.reduce((s,a,i)=>s+(a===qs[i][3]?1:0),0),un=answers.filter(a=>a===null).length;let msg=n>=26?'Excellent command of the key concepts.':n>=21?'Good progress—review the explanations for missed questions.':n>=15?'Developing understanding—revise the chapters with errors and try again.':'Start with the chapter map and simulations, then retake the test.';let r=document.getElementById('results');r.style.display='block';r.innerHTML=`<h2>Result: ${n}/30 (${Math.round(n/30*100)}%)</h2><p>${msg}</p><p class="muted">Unanswered: ${un}. ${n===30?'Perfect score!': 'Use the feedback under each question to revise.'}</p>`;r.scrollIntoView({behavior:'smooth',block:'center'})});
+document.getElementById('resetQuiz').addEventListener('click',()=>{answers=Array(qs.length).fill(null);finished=false;document.getElementById('results').style.display='none';renderQuiz()});renderQuiz();
 </script>
-</body>
-</html>
-
+</body></html>
